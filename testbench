@@ -1,55 +1,55 @@
 
 /////// Transaction class 
 class transaction;
-rand bit din;
-bit dout;
-
-function transaction copy();
-copy=new();
-copy.din=this.din;
-copy.dout=this.dout;
-endfunction
-
-
-function void display(input string tag);
-$display("[%0s] DIN:%0d \t DOUT:%0d",tag,din,dout);
-endfunction
+  rand bit din;
+  bit dout;
+  
+  function transaction copy();
+  copy=new();
+  copy.din=this.din;
+  copy.dout=this.dout;
+  endfunction
+  
+  
+  function void display(input string tag);
+  $display("[%0s] DIN:%0d \t DOUT:%0d",tag,din,dout);
+  endfunction
 
 endclass
 
 /// Generator class 
 
 class generator;
-transaction tr;
-mailbox #(transaction) mbx;
-mailbox #(transaction) mbxref;
-event sconext;
-event done;
-int count1;
-int count;
-
-function new(mailbox #(transaction) mbx,mailbox #(transaction) mbxref);
-this.mbx=mbx;
-this.mbxref=mbxref;
-tr=new();
-endfunction
-
-task run();
-repeat(count) begin 
-for(int i=0;i<10;i++) begin
-assert(tr.randomize()) else $display("[GEN] randomization failed");
-mbx.put(tr.copy());
-mbxref.put(tr.copy());
-tr.display("GEN");
-@(sconext);
-count1++;
-$display("count :%0d",count1);
-end
-end
-
-->done;
-
-endtask
+  transaction tr;
+  mailbox #(transaction) mbx;
+  mailbox #(transaction) mbxref;
+  event sconext;
+  event done;
+  int count1;
+  int count;
+  
+  function new(mailbox #(transaction) mbx,mailbox #(transaction) mbxref);
+    this.mbx=mbx;
+    this.mbxref=mbxref;
+    tr=new();
+  endfunction
+  
+  task run();
+    repeat(count) begin 
+      for(int i=0;i<10;i++) begin
+        assert(tr.randomize()) else $display("[GEN] randomization failed");
+        mbx.put(tr.copy());
+        mbxref.put(tr.copy());
+        tr.display("GEN");
+        @(sconext);
+        count1++;
+        $display("count :%0d",count1);
+    end
+  end
+  
+  ->done;
+  
+  endtask
 
 
 endclass
