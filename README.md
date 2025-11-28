@@ -8,7 +8,6 @@ This repository contains a **SystemVerilog UVM-style testbench** for a simple **
 - [Design Overview](#design-overview)
 - [Architecture](#architecture)
 - [Simulation](#simulation)
-- [FPGA Implementation](#fpga-implementation)
 - [How to Run](#how-to-run)
 - [Results](#results)
 
