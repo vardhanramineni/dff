@@ -1,4 +1,4 @@
-# DFF UVM Testbench
+# DFF UVM Style Testbench
 
 This repository contains a **SystemVerilog UVM-style testbench** for a simple **D Flip-Flop (DFF)** design. The testbench demonstrates functional verification using transactions, generator, driver, monitor, scoreboard, and coverage.
 
